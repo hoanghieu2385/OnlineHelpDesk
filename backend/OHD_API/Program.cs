@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using OHD_API.Sevices;
+
 namespace OHD_API
 {
     public class Program
@@ -9,6 +12,11 @@ namespace OHD_API
 
             // Add services to the container.
 
+            builder.Services.AddDbContext<ApplicationDBContext>(options =>
+            {
+                var connectionsString = builder.Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(connectionsString);
+            });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
