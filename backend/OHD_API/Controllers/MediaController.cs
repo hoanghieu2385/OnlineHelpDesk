@@ -21,6 +21,16 @@ namespace OHD_API.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Create), new { id = mediaModel.MediaTypeID });
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<MediaModel>> Get()
+        {
+            var media = _context.mediaModels.ToList();
+            if (media == null)
+            {
+                return NotFound();
+            }
+            return Ok(media);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

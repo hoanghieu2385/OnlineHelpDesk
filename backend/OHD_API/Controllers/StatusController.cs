@@ -21,6 +21,16 @@ namespace OHD_API.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Create), new {id = statusModel.StatusID});
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<StatusModel>> GetAllStatus()
+        {
+            var status = _context.statusModels.ToList();
+            if (status == null)
+            {
+                return NotFound();
+            }
+            return Ok(status);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
