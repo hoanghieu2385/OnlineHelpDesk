@@ -108,15 +108,20 @@ namespace OHD_API.Controllers
         {
             // init data cho role
             var roleAdmin = new IdentityRole("ADMIN");
-            var roleManager = new IdentityRole("MANAGER");
+            var roleManager = new IdentityRole("FACILITY_HEAD");
             var roleUser = new IdentityRole("USER");
+            var roleAssignee = new IdentityRole("ASSIGNEE");
             if (await _roleManager.RoleExistsAsync("ADMIN") == false)
             {
                 await _roleManager.CreateAsync(roleAdmin);
             }
-            if (await _roleManager.RoleExistsAsync("MANAGER") == false)
+            if (await _roleManager.RoleExistsAsync("FACILITY_HEAD") == false)
             {
                 await _roleManager.CreateAsync(roleManager);
+            }
+            if (await _roleManager.RoleExistsAsync("ASSIGNEE") == false)
+            {
+                await _roleManager.CreateAsync(roleAssignee);
             }
             if (await _roleManager.RoleExistsAsync("USER") == false)
             {
