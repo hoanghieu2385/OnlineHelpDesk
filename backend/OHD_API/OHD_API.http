@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @OHD_API_HostAddress = http://localhost:5031
+=======
+@OHD_API_HostAddress = http://localhost:5200
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
 
 GET {{OHD_API_HostAddress}}/weatherforecast/
 Accept: application/json

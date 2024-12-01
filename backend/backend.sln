@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHD_API", "OHD_API\OHD_API.csproj", "{943F2151-77FF-43F8-8E64-443E5266588B}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHD_API", "OHD_API\OHD_API.csproj", "{90762961-02C8-43EB-9131-83EAAA67E868}"
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +15,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< HEAD
 		{943F2151-77FF-43F8-8E64-443E5266588B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{943F2151-77FF-43F8-8E64-443E5266588B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943F2151-77FF-43F8-8E64-443E5266588B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{943F2151-77FF-43F8-8E64-443E5266588B}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{90762961-02C8-43EB-9131-83EAAA67E868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90762961-02C8-43EB-9131-83EAAA67E868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90762961-02C8-43EB-9131-83EAAA67E868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90762961-02C8-43EB-9131-83EAAA67E868}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< HEAD
 		SolutionGuid = {365760FE-BD0E-49C8-81AA-0F435442FC74}
+=======
+		SolutionGuid = {F686B7A3-B5BA-473D-9104-BFEF5BE8569A}
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
 	EndGlobalSection
 EndGlobal
