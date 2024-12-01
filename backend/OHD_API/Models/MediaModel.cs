@@ -11,7 +11,7 @@ namespace OHD_API.Models
         public int MediaID { get; set; }
 
         [ForeignKey("Request")]
-        public int RequestID { get; set; }
+        public int? RequestID { get; set; } // Nullable for initial creation without association
 
         [ForeignKey("MediaType")]
         public int MediaTypeID { get; set; }
@@ -26,6 +26,7 @@ namespace OHD_API.Models
 
         public DateTime CreatedAt { get; set; }
 
+        // Navigation properties
         public virtual RequestModel Request { get; set; }
         public virtual MediaTypeModel MediaType { get; set; }
     }
