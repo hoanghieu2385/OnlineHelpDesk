@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OHD_API.Services;
-using OHD_API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OHD_API.Models;
+using OHD_API.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace OHD_API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("media")]
-    public class MediaController : Controller
+    public class MediaController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
 
@@ -14,55 +19,86 @@ namespace OHD_API.Controllers
         {
             _context = context;
         }
-        [HttpPost]
-        public async Task<IActionResult> Create(MediaModel mediaModel)
-        {
-            _context.mediaModels.Add(mediaModel);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Create), new { id = mediaModel.MediaTypeID });
-        }
+
+        // GET: api/Media
         [HttpGet]
-        public ActionResult<IEnumerable<MediaModel>> Get()
+        public async Task<ActionResult<IEnumerable<MediaModel>>> GetMedia()
         {
-            var media = _context.mediaModels.ToList();
-            if (media == null)
-            {
-                return NotFound();
-            }
-            return Ok(media);
+            return await _context.Media.ToListAsync();
         }
+
+        // GET: api/Media/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<MediaModel>> GetMediaById(int id)
         {
-            var status = await _context.mediaModels.FindAsync(id);
-            if (status == null)
-            {
-                return NotFound();
-            }
-            return Ok(status);
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var media = await _context.mediaModels.FindAsync(id);
+            var media = await _context.Media.FindAsync(id);
             if (media == null)
             {
                 return NotFound();
             }
-            _context.Remove(media);
-            _context.SaveChanges();
-            return Ok(media);
+            return media;
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, MediaModel mediaModel)
+
+        // POST: api/Media
+        [HttpPost]
+        public async Task<ActionResult<MediaModel>> CreateMedia(MediaModel media)
         {
-            if (id != mediaModel.MediaTypeID)
+            media.CreatedAt = DateTime.UtcNow;
+            _context.Media.Add(media);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetMediaById), new { id = media.MediaID }, media);
+        }
+
+        // PUT: api/Media/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMedia(int id, MediaModel media)
+        {
+            if (id != media.MediaID)
             {
                 return BadRequest();
             }
-            _context.Entry(mediaModel).State = EntityState.Modified;
+
+            _context.Entry(media).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MediaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/Media/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMedia(int id)
+        {
+            var media = await _context.Media.FindAsync(id);
+            if (media == null)
+            {
+                return NotFound();
+            }
+
+            _context.Media.Remove(media);
             await _context.SaveChangesAsync();
-            return Ok();
+
+            return NoContent();
+        }
+
+        private bool MediaExists(int id)
+        {
+            return _context.Media.Any(e => e.MediaID == id);
         }
     }
 }

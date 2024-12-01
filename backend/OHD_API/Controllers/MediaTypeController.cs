@@ -1,40 +1,40 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OHD_API.Services;
 using OHD_API.Models;
 using Microsoft.EntityFrameworkCore;
 namespace OHD_API.Controllers
 {
     [ApiController]
-    [Route("status")]
-    public class StatusController : Controller
+    [Route("mediaType")]
+    public class MediaTypeController : Controller
     {
         private readonly ApplicationDBContext _context;
 
-        public StatusController(ApplicationDBContext context)
+        public MediaTypeController(ApplicationDBContext context)
         {
             _context = context;
         }
         [HttpPost]
-        public async Task<IActionResult> Create(StatusModel statusModel)
+        public async Task<IActionResult> Create(MediaTypeModel mediaTypeModel)
         {
-            _context.Statuses.Add(statusModel);
+            _context.MediaTypes.Add(mediaTypeModel);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Create), new {id = statusModel.StatusID});
+            return CreatedAtAction(nameof(Create), new { id = mediaTypeModel.MediaTypeID });
         }
         [HttpGet]
-        public ActionResult<IEnumerable<StatusModel>> GetAllStatus()
+        public ActionResult<IEnumerable<MediaTypeModel>> Get()
         {
-            var status = _context.Statuses.ToList();
-            if (status == null)
+            var media = _context.MediaTypes.ToList();
+            if (media == null)
             {
                 return NotFound();
             }
-            return Ok(status);
+            return Ok(media);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var status = await _context.Statuses.FindAsync(id);
+            var status = await _context.MediaTypes.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
@@ -44,23 +44,23 @@ namespace OHD_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _context.Statuses.FindAsync(id);
-            if (status == null)
+            var media = await _context.MediaTypes.FindAsync(id);
+            if (media == null)
             {
                 return NotFound();
             }
-            _context.Remove(status);
+            _context.Remove(media);
             _context.SaveChanges();
-            return Ok(status);
+            return Ok(media);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, StatusModel statusModel)
+        public async Task<IActionResult> Put(int id, MediaTypeModel mediaModel)
         {
-            if (id != statusModel.StatusID)
+            if (id != mediaModel.MediaTypeID)
             {
                 return BadRequest();
             }
-            _context.Entry(statusModel).State = EntityState.Modified;
+            _context.Entry(mediaModel).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok();
         }

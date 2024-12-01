@@ -19,5 +19,9 @@ namespace OHD_API.Models
         public string Location { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public virtual ICollection<MediaModel> Media { get; set; }  // Link to Media
+        public virtual FacilityModel Facility { get; set; }         // Link to Facility
+        public virtual User User { get; set; }  
     }
 }
