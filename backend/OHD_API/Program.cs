@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< HEAD
+using OHD_API.Services;
+=======
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OHD_API.Services;
 using System.Text;
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
 
 namespace OHD_API
 {
@@ -50,9 +54,12 @@ namespace OHD_API
                 options.UseSqlServer(connectionsString);
             });
 
+<<<<<<< HEAD
+=======
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDBContext>();
 
+>>>>>>> 1b8b0fcaa8e36160a20d035239584e895dc31639
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

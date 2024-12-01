@@ -1,19 +1,14 @@
-import {Route, Routes} from 'react-router-dom'
-import path from './utils/path'
-import { Home, Public, } from './pages/index'
+import './App.css'
+import React from 'react';
+import Navbar from './components/Navbar';
+import Main from './components/Main';
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path={path.PUBLIC} element={<Public />}>
-          <Route index element={<Home />} />
-          {/* <Route path={path.CREATE} element={<Create />} />
-          <Route path={path.EDIT} element={<Edit />} /> */}
-        </Route>  
-      </Routes>
-    </div>
+      <div className="App">
+        <Navbar />
+        <Main/>
+      </div>
   );
 }
-
-export default App;
