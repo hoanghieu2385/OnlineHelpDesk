@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 namespace OHD_API.Controllers
 {
     [ApiController]
-    [Route("media")]
-    public class MediaController : Controller
+    [Route("mediaType")]
+    public class MediaTypeController : Controller
     {
         private readonly ApplicationDBContext _context;
 
-        public MediaController(ApplicationDBContext context)
+        public MediaTypeController(ApplicationDBContext context)
         {
             _context = context;
         }

@@ -19,18 +19,22 @@ namespace OHD_API.Controllers
             _context = context;
         }
 
-        // GET: api/Request
+        // GET: api/Requests
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RequestModel>>> GetRequests()
         {
-            return await _context.Requests.ToListAsync();
+            return await _context.Requests
+                .Include(r => r.Media)   // media
+                .ToListAsync();
         }
 
-        // GET: api/Request/{id}
+        // GET: api/Requests/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<RequestModel>> GetRequest(int id)
         {
-            var request = await _context.Requests.FindAsync(id);
+            var request = await _context.Requests
+                .Include(r => r.Media)   // media
+                .FirstOrDefaultAsync(r => r.RequestID == id);
 
             if (request == null)
             {
@@ -40,11 +44,27 @@ namespace OHD_API.Controllers
             return request;
         }
 
-        // POST: api/Request
+        // POST: api/Requests
         [HttpPost]
         public async Task<ActionResult<RequestModel>> CreateRequest(RequestModel request)
         {
+            request.CreatedAt = DateTime.UtcNow;
+            request.UpdatedAt = DateTime.UtcNow;
+
             _context.Requests.Add(request);
+
+            // Optionally add media if provided
+            if (request.Media != null && request.Media.Any())
+            {
+                foreach (var media in request.Media)
+                {
+                    media.RequestID = request.RequestID; // Link media to request
+                    media.CreatedAt = DateTime.UtcNow;
+                }
+
+                _context.Media.AddRange(request.Media);
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetRequest), new { id = request.RequestID }, request);
@@ -79,16 +99,21 @@ namespace OHD_API.Controllers
 
             return NoContent();
         }
-
-        // DELETE: api/Request/{id}
+        // DELETE: api/Requests/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRequest(int id)
         {
-            var request = await _context.Requests.FindAsync(id);
+            var request = await _context.Requests
+                .Include(r => r.Media)  // media
+                .FirstOrDefaultAsync(r => r.RequestID == id);
+
             if (request == null)
             {
                 return NotFound();
             }
+
+            // Remove associated media
+            _context.Media.RemoveRange(request.Media);
 
             _context.Requests.Remove(request);
             await _context.SaveChangesAsync();

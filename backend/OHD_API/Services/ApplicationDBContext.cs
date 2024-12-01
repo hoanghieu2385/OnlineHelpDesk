@@ -20,6 +20,7 @@ namespace OHD_API.Services
         }
         public DbSet<StatusModel> Statuses { set; get;}
         public DbSet<MediaTypeModel> MediaTypes { set; get;}
+        public DbSet<MediaModel> Media { get; set; }
         public DbSet<FacilityModel> Facilities { get; set; }
         public DbSet<RequestModel> Requests { get; set; }
 

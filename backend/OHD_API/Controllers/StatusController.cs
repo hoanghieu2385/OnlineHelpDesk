@@ -17,14 +17,14 @@ namespace OHD_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(StatusModel statusModel)
         {
-            _context.statusModels.Add(statusModel);
+            _context.Statuses.Add(statusModel);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Create), new {id = statusModel.StatusID});
         }
         [HttpGet]
         public ActionResult<IEnumerable<StatusModel>> GetAllStatus()
         {
-            var status = _context.statusModels.ToList();
+            var status = _context.Statuses.ToList();
             if (status == null)
             {
                 return NotFound();
@@ -34,7 +34,7 @@ namespace OHD_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var status = await _context.statusModels.FindAsync(id);
+            var status = await _context.Statuses.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace OHD_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _context.statusModels.FindAsync(id);
+            var status = await _context.Statuses.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
