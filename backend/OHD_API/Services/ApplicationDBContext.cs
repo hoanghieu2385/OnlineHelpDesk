@@ -18,8 +18,8 @@ namespace OHD_API.Services
         {
             base.OnModelCreating(builder);
         }
-        public DbSet<StatusModel> statusModels { set; get;}
-        public DbSet<MediaModel> mediaModels { set; get;}
+        public DbSet<StatusModel> Statuses { set; get;}
+        public DbSet<MediaTypeModel> MediaTypes { set; get;}
         public DbSet<FacilityModel> Facilities { get; set; }
         public DbSet<RequestModel> Requests { get; set; }
 

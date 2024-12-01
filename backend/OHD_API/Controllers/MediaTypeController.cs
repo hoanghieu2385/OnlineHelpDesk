@@ -15,16 +15,16 @@ namespace OHD_API.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<IActionResult> Create(MediaModel mediaModel)
+        public async Task<IActionResult> Create(MediaTypeModel mediaTypeModel)
         {
-            _context.mediaModels.Add(mediaModel);
+            _context.MediaTypes.Add(mediaTypeModel);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Create), new { id = mediaModel.MediaTypeID });
+            return CreatedAtAction(nameof(Create), new { id = mediaTypeModel.MediaTypeID });
         }
         [HttpGet]
-        public ActionResult<IEnumerable<MediaModel>> Get()
+        public ActionResult<IEnumerable<MediaTypeModel>> Get()
         {
-            var media = _context.mediaModels.ToList();
+            var media = _context.MediaTypes.ToList();
             if (media == null)
             {
                 return NotFound();
@@ -34,7 +34,7 @@ namespace OHD_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var status = await _context.mediaModels.FindAsync(id);
+            var status = await _context.MediaTypes.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace OHD_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var media = await _context.mediaModels.FindAsync(id);
+            var media = await _context.MediaTypes.FindAsync(id);
             if (media == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace OHD_API.Controllers
             return Ok(media);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, MediaModel mediaModel)
+        public async Task<IActionResult> Put(int id, MediaTypeModel mediaModel)
         {
             if (id != mediaModel.MediaTypeID)
             {

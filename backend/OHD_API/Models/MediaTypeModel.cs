@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OHD_API.Models
 {
     [Table("MediaType")]    
-    public class MediaModel
+    public class MediaTypeModel
     {
         [Key]
         [Column("MediaTypeID")]
